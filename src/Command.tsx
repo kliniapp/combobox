@@ -1,6 +1,6 @@
 import * as React from 'react'
 import { commandScore } from './command-score'
-import { Primitive } from '@radix-ui/react-primitive'
+import { Primitive, dispatchDiscreteCustomEvent } from '@radix-ui/react-primitive'
 import { Slottable } from '@radix-ui/react-slot'
 
 type Children = { children?: React.ReactNode }
@@ -22,7 +22,7 @@ type ItemProps = Children &
     /** Whether this item is currently disabled. */
     disabled?: boolean
     /** Event handler for when this item is selected, either via click or keyboard selection. */
-    onSelect?: (value: string, textContent: string, id?: string | number) => void
+    onSelect?: (event: Event, value: string, textContent: string, id?: string | number) => void
     /**
      * A unique value for this item.
      * If no value is provided, it will be inferred from `children` or the rendered `textContent`. If your `textContent` changes between renders, you _must_ provide a stable, unique `value`.
@@ -635,8 +635,23 @@ const Item = React.forwardRef<HTMLDivElement, ItemProps>((props, forwardedRef) =
   }, [render, props.onSelect, props.disabled])
 
   function onSelect() {
-    select()
-    propsRef.current.onSelect?.(value.current, ref.current?.textContent, props.id ?? props.key)
+    const item = ref.current
+    if (item) {
+      const itemSelectEvent = new CustomEvent('command.itemSelect', {
+        bubbles: true,
+        cancelable: true,
+      })
+      item.addEventListener('command.itemSelect', (event) =>
+        propsRef.current.onSelect?.(
+          event,
+          value.current,
+          ref.current?.textContent,
+          props.id ?? props.key,
+        ),
+      )
+      select()
+      dispatchDiscreteCustomEvent(item, itemSelectEvent)
+    }
   }
 
   function select() {

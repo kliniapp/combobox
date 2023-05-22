@@ -35,7 +35,7 @@ const ComboboxItemAdd = () => {
   const render = Combobox.useCommandState((state) => state.filtered.count === 0)
   const search = Combobox.useCommandState((state) => state.search)
   return render ? (
-    <Combobox.Item forceMount className="ComboboxItem">
+    <Combobox.Item forceMount className="ComboboxItem" onSelect={(event) => event.preventDefault()}>
       Add {search}
     </Combobox.Item>
   ) : null

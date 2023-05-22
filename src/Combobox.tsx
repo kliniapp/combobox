@@ -551,9 +551,9 @@ const ComboboxItem = React.forwardRef<ComboboxItemElement, ComboboxItemProps>(
       <Command.Item
         {...props}
         ref={forwardedRef}
-        // pass event to add a preventDefault or control by prop
-        onSelect={(value, textContent, id) => {
-          props.onSelect?.(value, textContent, id)
+        onSelect={(event, value, textContent, id) => {
+          props.onSelect?.(event, value, textContent, id)
+          if (event.defaultPrevented) return
           context.onSelectedChange(id)
           context.onInputChange(textContent)
           context.onClose()

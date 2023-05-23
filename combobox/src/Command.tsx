@@ -1,3 +1,5 @@
+/* eslint-disable */
+// @ts-nocheck
 import * as React from 'react'
 import { commandScore } from './command-score'
 import { Primitive, dispatchDiscreteCustomEvent } from '@radix-ui/react-primitive'

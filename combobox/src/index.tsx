@@ -184,8 +184,7 @@ const ComboboxInput = React.forwardRef<ComboboxInputElement, ComboboxInputProps>
           if (value.trim()) context.onOpen()
           context.onInputChange(value)
         }}
-        onClick={context.onOpen}
-        // onBlur={context.onClose}
+        onBlur={context.onClose}
       />
     )
   },

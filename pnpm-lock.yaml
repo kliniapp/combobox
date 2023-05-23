@@ -92,6 +92,9 @@ importers:
 
   website:
     dependencies:
+      klini-combobox:
+        specifier: workspace:*
+        version: link:../combobox
       react:
         specifier: ^18.2.0
         version: 18.2.0

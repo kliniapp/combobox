@@ -2,9 +2,9 @@
   "name": "root",
   "private": true,
   "scripts": {
-    "build": "pnpm -F @klini/combobox build",
+    "build": "pnpm -F klini-combobox build",
     "dev": "run-p dev:*",
-    "dev:lib": "pnpm -F @klini/combobox dev",
+    "dev:lib": "pnpm -F klini-combobox dev",
     "dev:website": "pnpm -F website dev",
     "format": "prettier '**/*.{js,jsx,ts,tsx,json,md,mdx,css,scss,yaml,yml}' --write"
   },

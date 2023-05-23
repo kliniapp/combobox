@@ -812,7 +812,7 @@ const Input = React.forwardRef<HTMLInputElement, InputProps>((props, forwardedRe
 
   React.useEffect(() => {
     if (props.value != null) {
-      store.setState('search', props.value)
+      store.setState('search', props.value.trim())
     }
   }, [props.value])
 

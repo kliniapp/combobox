@@ -158,7 +158,7 @@ const Command = React.forwardRef<HTMLDivElement, CommandProps>((props, forwarded
   const ids = useLazyRef<Map<string, string>>(() => new Map()) // id → value
   const listeners = useLazyRef<Set<() => void>>(() => new Set()) // [...rerenders]
   const propsRef = useAsRef(props)
-  const { label, children, value, ...etc } = props
+  const { label, children, value, onValueChange, ...etc } = props
 
   const listId = React.useId()
   const labelId = React.useId()
@@ -199,7 +199,7 @@ const Command = React.forwardRef<HTMLDivElement, CommandProps>((props, forwarded
           schedule(1, selectFirstItem)
         } else if (key === 'value') {
           const newValue = (value ?? '') as string
-          propsRef.current.onValueChange?.(newValue)
+          onValueChange?.(newValue)
 
           if (!opts) {
             // Scroll the selected item into view
@@ -682,14 +682,18 @@ const Item = React.forwardRef<HTMLDivElement, ItemProps>((props, forwardedRef) =
             }
       }
       // TODO: select on pointer up
-      onClick={
-        disabled
-          ? props.onClick
-          : (event) => {
-              props.onClick?.(event)
-              onSelect()
-            }
-      }
+      // onClick={
+      //   disabled
+      //     ? props.onClick
+      //     : (event) => {
+      //         props.onClick?.(event)
+      //         onSelect()
+      //       }
+      // }
+      onPointerUp={(event) => {
+        props.onPointerUp?.(event)
+        onSelect()
+      }}
     >
       {props.children}
     </Primitive.div>

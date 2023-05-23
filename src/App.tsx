@@ -1,6 +1,6 @@
 import './App.css'
 import React from 'react'
-import * as Combobox from './Combobox'
+import * as Combobox from '../combobox/src'
 
 function App() {
   const [value, setValue] = React.useState('Value 3')
